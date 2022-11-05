@@ -7,7 +7,12 @@
 		{
 			"Name": "WizardCpp",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject",
+				"Engine",
+				"Paper2D"
+			]
 		}
 	]
 }

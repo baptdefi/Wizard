@@ -410,7 +410,10 @@ void AWizardCppCharacter::Spell()
 	FUnistrokeResult Result = Recognizer->Recognize(CurrentPoints, false);
 
 	if (Result.Score < 0.8f)
+	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "No Magic", true, FVector2D(2, 2));
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "salutsalut", true, FVector2D(2, 2));
+	}
 	else {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Result.Name, true, FVector2D(2, 2));
 		PreparedSpell = ConvertSpellEnum(Result.Name);
