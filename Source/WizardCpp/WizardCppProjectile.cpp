@@ -1,5 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+#include "PaperEnemy.h"
+
 #include "WizardCppProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
@@ -33,10 +35,17 @@ AWizardCppProjectile::AWizardCppProjectile()
 
 void AWizardCppProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	//// Only add impulse and destroy projectile if we hit a physics
+	//if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	//{
+	//	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+
+	//	Destroy();
+	//}
+
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherActor->GetClass()->IsChildOf(APaperEnemy::StaticClass()))
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		UE_LOG(LogTemp, Warning, TEXT("Bullet destroyed"));
 
 		Destroy();
 	}

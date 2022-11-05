@@ -28,7 +28,7 @@ void AEnemyManager::Tick(float DeltaTime)
 		UE_LOG(LogTemp, Warning, TEXT("Spawn enemy"));
 
 		FActorSpawnParameters SpawnParam;
-		GetWorld()->SpawnActor<APaperEnemy>(PaperEnemy0, FVector(0, 0, 250), FRotator::ZeroRotator, SpawnParam);
+		GetWorld()->SpawnActor<APaperEnemy>(PaperEnemy0, FVector(0, 0, 400), FRotator::ZeroRotator, SpawnParam);
 
 		secondsCount = 0.0f;
 	}

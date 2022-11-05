@@ -338,19 +338,19 @@ void AWizardCppCharacter::Fire()
 	switch (PreparedSpell)
 	{
 	case 0:
-		ProjectileClassToSpawn = ProjectileClassEarth;
+		ProjectileClassToSpawn = Projectile0Class;
 		break;
 	case 1:
-		ProjectileClassToSpawn = ProjectileClassFire;
+		ProjectileClassToSpawn = Projectile1Class;
 		break;
 	case 2:
-		ProjectileClassToSpawn = ProjectileClassWater;
+		ProjectileClassToSpawn = Projectile2Class;
 		break;
 	case 3:
-		ProjectileClassToSpawn = ProjectileClassElec;
+		ProjectileClassToSpawn = Projectile3Class;
 		break;
 	case 4:
-		ProjectileClassToSpawn = ProjectileClassWind;
+		ProjectileClassToSpawn = Projectile4Class;
 		break;
 	default:
 		break;

@@ -79,19 +79,19 @@ public:
 
 	/** Projectile class to spawn */
 	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class AWizardCppProjectile> ProjectileClassEarth;
+	TSubclassOf<class AWizardCppProjectile> Projectile0Class;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class AWizardCppProjectile> ProjectileClassWater;
+	TSubclassOf<class AWizardCppProjectile> Projectile1Class;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class AWizardCppProjectile> ProjectileClassFire;
+	TSubclassOf<class AWizardCppProjectile> Projectile2Class;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class AWizardCppProjectile> ProjectileClassElec;
+	TSubclassOf<class AWizardCppProjectile> Projectile3Class;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class AWizardCppProjectile> ProjectileClassWind;
+	TSubclassOf<class AWizardCppProjectile> Projectile4Class;
 
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)

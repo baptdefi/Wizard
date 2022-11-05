@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Enums.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "WizardCppProjectile.generated.h"
@@ -33,5 +35,8 @@ public:
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	UPROPERTY(EditDefaultsOnly)
+	Types ProjectileType;
 };
 
