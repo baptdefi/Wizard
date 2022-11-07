@@ -182,5 +182,10 @@ private:
 	void Spell();
 	void LoadTemplates();
 	int ConvertSpellEnum(FString SpellName);
+	void CenterViewportCursor();
+
+public:
+	virtual void AddControllerYawInput(float Val) override;
+	virtual void AddControllerPitchInput(float Val) override;
 };
 

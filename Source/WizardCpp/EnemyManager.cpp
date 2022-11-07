@@ -1,5 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "Kismet/KismetMathLibrary.h"
+
 #include "EnemyManager.h"
 
 // Sets default values
@@ -27,8 +29,32 @@ void AEnemyManager::Tick(float DeltaTime)
 		//UE_LOG(LogTemp, Warning, TEXT("%s"), *(FString::SanitizeFloat(DeltaTime)));
 		UE_LOG(LogTemp, Warning, TEXT("Spawn enemy"));
 
+		int Random = UKismetMathLibrary::RandomIntegerInRange(0, 4);
+		TSubclassOf<class APaperEnemy> EnemyToSpawn = PaperEnemy0;
+
+		switch (Random)
+		{
+		case 0:
+			EnemyToSpawn = PaperEnemy0;
+			break;
+		case 1:
+			EnemyToSpawn = PaperEnemy1;
+			break;
+		case 2:
+			EnemyToSpawn = PaperEnemy2;
+			break;
+		case 3:
+			EnemyToSpawn = PaperEnemy3;
+			break;
+		case 4:
+			EnemyToSpawn = PaperEnemy4;
+			break;
+		default:
+			break;
+		}
+
 		FActorSpawnParameters SpawnParam;
-		GetWorld()->SpawnActor<APaperEnemy>(PaperEnemy0, FVector(0, 0, 400), FRotator::ZeroRotator, SpawnParam);
+		GetWorld()->SpawnActor<APaperEnemy>(EnemyToSpawn, FVector(0, 0, 400), FRotator::ZeroRotator, SpawnParam);
 
 		secondsCount = 0.0f;
 	}

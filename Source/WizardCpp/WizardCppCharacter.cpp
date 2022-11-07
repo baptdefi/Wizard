@@ -164,8 +164,7 @@ void AWizardCppCharacter::OnClickPressed()
 	if (!bSpellReady)
 	{
 		CurrentAction = Action::Paint;
-
-		
+		CenterViewportCursor();
 
 		return;
 	}
@@ -184,6 +183,7 @@ void AWizardCppCharacter::OnClickReleased()
 	{
 	case Action::Recognize:
 		Spell();
+		CenterViewportCursor();
 		break;
 	default:
 		break;
@@ -203,8 +203,6 @@ void AWizardCppCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const 
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Test baptiste"));
-		UE_LOG(LogTemp, Warning, TEXT("Test baptiste 2"));
 		Fire();
 	}
 	TouchItem.bIsPressed = true;
@@ -412,7 +410,6 @@ void AWizardCppCharacter::Spell()
 	if (Result.Score < 0.8f)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "No Magic", true, FVector2D(2, 2));
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "salutsalut", true, FVector2D(2, 2));
 	}
 	else {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Result.Name, true, FVector2D(2, 2));
@@ -468,6 +465,51 @@ void AWizardCppCharacter::LoadTemplates()
 		for (int i = 0; i < Rows.Num(); i++)
 		{
 			Recognizer->AddTemplate((*Rows[i]).Name, (*Rows[i]).Points);
+		}
+	}
+}
+
+void AWizardCppCharacter::AddControllerYawInput(float Val)
+{
+	if (CurrentAction == Action::Paint)
+	{
+		return;
+	}
+	else
+	{
+		Super::AddControllerYawInput(Val);
+	}
+}
+
+void AWizardCppCharacter::AddControllerPitchInput(float Val)
+{
+	if (CurrentAction == Action::Paint)
+	{
+		return;
+	}
+	else
+	{
+		Super::AddControllerPitchInput(Val);
+	}
+}
+
+void AWizardCppCharacter::CenterViewportCursor()
+{
+	if (GetWorld()->GetFirstPlayerController())
+	{
+		const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstPlayerController()->GetLocalPlayer();
+		if (LocalPlayer && LocalPlayer->ViewportClient)
+		{
+			FViewport* Viewport = LocalPlayer->ViewportClient->Viewport;
+			if (Viewport)
+			{
+				FVector2D ViewportSize;
+				LocalPlayer->ViewportClient->GetViewportSize(ViewportSize);
+				const int32 X = static_cast<int32>(ViewportSize.X * 0.5f);
+				const int32 Y = static_cast<int32>(ViewportSize.Y * 0.5f);
+
+				Viewport->SetMouse(X, Y);
+			}
 		}
 	}
 }
