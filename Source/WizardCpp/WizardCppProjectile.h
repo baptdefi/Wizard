@@ -24,6 +24,9 @@ class AWizardCppProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 public:
 	AWizardCppProjectile();
 

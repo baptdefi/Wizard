@@ -105,6 +105,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int CurrentAction;
+
 protected:
 	
 	/** Mouse click binding */
@@ -174,7 +177,6 @@ private:
 
 	bool bSpellReady = false;
 	UPaintWidget* PaintWidget;
-	int CurrentAction;
 	UDataTable* UnistrokeTable;
 	FUnistrokeRecognizer* Recognizer;
 	int PreparedSpell = -1;

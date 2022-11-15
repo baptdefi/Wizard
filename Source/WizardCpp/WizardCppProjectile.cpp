@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "PaperEnemy.h"
+#include "Kismet/KismetMathLibrary.h"
 
 #include "WizardCppProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -49,4 +50,17 @@ void AWizardCppProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActo
 
 		Destroy();
 	}
+}
+
+// Called every frame
+void AWizardCppProjectile::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+	FVector EnemytoPlayer = PlayerLocation - GetActorTransform().GetLocation();
+	EnemytoPlayer.Normalize();
+
+	FRotator NewRotation = UKismetMathLibrary::MakeRotFromXZ(EnemytoPlayer, FVector(0, 0, 1));
+	SetActorRotation(NewRotation);
 }
