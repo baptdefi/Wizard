@@ -24,7 +24,18 @@ void AEnemyManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (secondsCount >= 10)
+	float SpawnCooldown = 10;
+
+	if (GetGameTimeSinceCreation() > 180)
+	{
+		SpawnCooldown = 5;
+	}
+	else if (GetGameTimeSinceCreation() > 300)
+	{
+		SpawnCooldown = 3;
+	}
+
+	if (secondsCount >= SpawnCooldown)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("%s"), *(FString::SanitizeFloat(DeltaTime)));
 		UE_LOG(LogTemp, Warning, TEXT("Spawn enemy"));
@@ -51,10 +62,28 @@ void AEnemyManager::Tick(float DeltaTime)
 			break;
 		default:
 			break;
+		}		
+
+		FVector CharacterLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+
+		int RandomX = UKismetMathLibrary::RandomIntegerInRange(400, 1400);
+		int RandomY = UKismetMathLibrary::RandomIntegerInRange(400, 1400);
+		int RandomSignX = UKismetMathLibrary::RandomIntegerInRange(0, 1);
+		int RandomSignY = UKismetMathLibrary::RandomIntegerInRange(0, 1);
+
+		if (RandomSignX == 0)
+		{
+			RandomX = -RandomX;
+		}
+		if (RandomSignY == 0)
+		{
+			RandomY = -RandomY;
 		}
 
+		FVector EnemyLocation = FVector(CharacterLocation.X + RandomX, CharacterLocation.Y + RandomY, 400);
+
 		FActorSpawnParameters SpawnParam;
-		GetWorld()->SpawnActor<APaperEnemy>(EnemyToSpawn, FVector(0, 0, 400), FRotator::ZeroRotator, SpawnParam);
+		GetWorld()->SpawnActor<APaperEnemy>(EnemyToSpawn, EnemyLocation, FRotator::ZeroRotator, SpawnParam);
 
 		secondsCount = 0.0f;
 	}
