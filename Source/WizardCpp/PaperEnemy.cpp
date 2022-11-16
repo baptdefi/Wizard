@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WizardCppProjectile.h"
+#include "WizardCppCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -35,6 +36,10 @@ void APaperEnemy::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	if (OtherActor == GetWorld()->GetFirstPlayerController()->GetPawn())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player Death"));
+
+		AWizardCppCharacter* Character = Cast<AWizardCppCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+		Character->DecreaseHP();
+
 		Destroy();
 	}
 
@@ -44,6 +49,10 @@ void APaperEnemy::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		if (Projectile->ProjectileType == EnemyType)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Projectile Death"));
+
+			AWizardCppCharacter* Character = Cast<AWizardCppCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+			Character->AddScore();
+
 			Destroy();
 		}
 		else

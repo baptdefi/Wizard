@@ -21,6 +21,8 @@ class USoundBase;
 enum Action { Idle, Paint, Recognize, Train };
 enum Spell { Circle, Pigtail, V, X, Triangle };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPlayerDataChanged);
+
 UCLASS(config=Game)
 class AWizardCppCharacter : public ACharacter
 {
@@ -108,6 +110,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int CurrentAction;
 
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FPlayerDataChanged OnScoreChanged;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FPlayerDataChanged OnHPChanged;
+
 protected:
 	
 	/** Mouse click binding */
@@ -164,14 +172,29 @@ protected:
 	 */
 	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
+	// Score
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int Score = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int HealthPoints = 3;
+
 public:
 	/** Returns Mesh1P subobject **/
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
-
 	virtual void Tick(float DeltaTime) override;
+
+	void AddScore();
+
+	void DecreaseHP();
+
+	UFUNCTION(BlueprintCallable)
+	int GetScore();
+
+	UFUNCTION(BlueprintCallable)
+	int GetHP();
 
 private: 
 

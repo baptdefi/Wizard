@@ -513,3 +513,25 @@ void AWizardCppCharacter::CenterViewportCursor()
 		}
 	}
 }
+
+void AWizardCppCharacter::AddScore()
+{
+	Score += 100;
+	OnScoreChanged.Broadcast();
+}
+
+void AWizardCppCharacter::DecreaseHP()
+{
+	HealthPoints -= 1;
+	OnHPChanged.Broadcast();
+}
+
+int AWizardCppCharacter::GetScore()
+{
+	return Score;
+}
+
+int AWizardCppCharacter::GetHP()
+{
+	return HealthPoints;
+}
